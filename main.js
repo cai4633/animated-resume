@@ -10,16 +10,12 @@ $(document).ready(function () {
  */
 html{
     background-color: rgb(60, 80, 100);
+    color: #fff;
     padding: 20px;
 }
 
-/** 看不见字？ */
-html{
-    color: #fff;
-}
 
 pre:not(:empty){
-    // margin: 40px;
     overflow: auto;
     padding: 10px;
     width: 45vw;
@@ -31,7 +27,7 @@ pre:not(:empty){
 
 /* 接下来，我们让这个codePanel 动起来 */
 pre.css{
-    animation: my-move 2s;
+    animation: my-breath 0.8s 200, my-move 2s;
 }
 pre:not(:empty){
   transform: rotateY(10deg);
@@ -46,8 +42,8 @@ pre.md{
   transform-origin: right;
 }
 /* 开始写我们的简历吧！&&_&& */
- `
 
+ `
   let md = `
   # 蔡进东
   初级前端工程师，现在供职于北京精雕科技集团苏州分公司
@@ -69,9 +65,6 @@ pre.md{
   # 链接
   - [github]()
   - [我的博客](http://caijd.top)
-
-
-
   `
   let next = 0
   let n = 0
@@ -93,11 +86,14 @@ pre.md{
       console.log(222)
     })
 
+
+
+  
   function setTimer(code, selector, resolve, isCss) {
     return window.setInterval(() => {
       writeCode(code, selector, resolve, isCss)
       isHighLight && highlight(selector)
-    }, 10)
+    }, 30)
   }
 
   function writeCode(str, selector, resolve, isCss) {
