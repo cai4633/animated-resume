@@ -10,10 +10,9 @@ $(document).ready(function () {
  */
 html{
     background-color: rgb(60, 80, 100);
-    color: #fff;
+    color: rgb(255,255,255);
     padding: 20px;
 }
-
 
 pre:not(:empty){
     overflow: auto;
@@ -21,19 +20,25 @@ pre:not(:empty){
     width: 45vw;
     height: 85vh;
     background-color: rgb(48, 48, 48);
-    font-size: 16px;
     box-shadow: 0 0 10px 2px #FFF;
 }
 
 /* 接下来，我们让这个codePanel 动起来 */
 pre.css{
-    animation: my-breath 0.8s 200, my-move 2s;
+    animation: my-move 2s;
 }
+
+/* 加一个呼吸效果吧！ */
+pre.css{
+  animation: my-breath 1s 200;
+}
+
 pre:not(:empty){
   transform: rotateY(10deg);
   transform-origin: left;
 }
-/* 感覺哪裡不對勁？來讓代碼高亮吧！*/
+
+/* 感覺哪裡不對勁？來讓代碼高亮吧！&&_&& */
 pre.md{
   position: fixed;
   top: 20px;
@@ -41,8 +46,8 @@ pre.md{
   transform: rotateY(-10deg);
   transform-origin: right;
 }
-/* 开始写我们的简历吧！&&_&& */
 
+/* 开始写我们的简历吧！&&_&& */
  `
   let md = `
   # 蔡进东
@@ -83,7 +88,6 @@ pre.md{
     .then(() => {
       n = 0
       timer1 = setTimer(md, "pre.md", null, false)
-      console.log(222)
     })
 
 
@@ -93,7 +97,7 @@ pre.md{
     return window.setInterval(() => {
       writeCode(code, selector, resolve, isCss)
       isHighLight && highlight(selector)
-    }, 30)
+    }, 50)
   }
 
   function writeCode(str, selector, resolve, isCss) {
@@ -101,7 +105,7 @@ pre.md{
     if (detectPause(subString) && pauseCount === 0) {
       window.clearInterval(timer1)
       let timer2 = window.setTimeout(() => {
-        timer1 = setTimer(code1, "pre.css", resolve)
+        timer1 = setTimer(code1, "pre.css", resolve,true)
         isHighLight = 1
         window.clearTimeout(timer2)
       }, 1500)
@@ -113,7 +117,6 @@ pre.md{
     $(selector).text(subString).scrollTop(1000000)
     isCss && $css.html(subString)
     isCss || textToMd(subString,'.md')
-    // $(selector).text(subString).scrollTop(1000000)
     n++
     if (n > str.length) {
       window.clearInterval(timer1)
